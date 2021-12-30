@@ -1,50 +1,37 @@
 <h4 class="ui center aligned medium icon header">
   <i class="circular blue comments icon"></i>
-  Friends
+  Message Me
 </h4>
 
 <div class="ui two column grid">
   <div class="twelve wide column">
     <div class="ui fluid raised card chatbox">
-      <div class="content">
-        <div class="ui feed">
-          <% @messages.each do |msg| %>
-            <div class="event">
-              <div class="content">
-                <div class="summary">
-                  <em><%= msg.user.username %></em>: <%= msg.body %>
-                </div>
-              </div>
-            </div>
-          <% end %>
+      <div class="content msgs" id="msg-box">
+        <div class="ui feed" id="msg-container">
+          <%= render @messages %>
         </div>
       </div>
       <div class="extra content">
-        <form class="ui reply form">
+        <%= form_for(@message, html: { class:"ui reply form", role:"form" }, url: message_path, remote: true) do |f| %>
           <div class="field">
             <div class="ui fluid icon input">
-              <input type="text" placeholder="Search users...">
-              <i class="bordered inverted orange edit icon"></i>
+              <%= f.text_field :body, placeholder:"Type a message here..." %>
+              <%= f.button '<i class="blue mail big icon"></i>'.html_safe %>
             </div>
           </div>
-          
-        </form>
+        <% end %>
       </div>
     </div>
   </div>
   <div class="four wide column">
     <div class="ui fluid raised card chatbox">
-      <div class="content">
-        <div class="ui inverted vertical menu">
+      <div class="content msgs">
+        <div class="ui inverted vertical menu fluid">
           <a class="active item">
             Online Users
           </a>
-          <a class="item">
-            User 1
-          </a>
-          <a class="item">
-            User 2
-          </a>
+            <div class="item">User 1</div>
+            <div class="item">User 2</div>
         </div>
       </div>
     </div>
